@@ -5,6 +5,8 @@ import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 import { H1Styled, H2Styled } from './App.styled';
 
+const CONTACTS_KEY = 'contacts';
+
 export class App extends Component {
   state = {
     contacts: [
@@ -15,6 +17,19 @@ export class App extends Component {
     ],
     filter: '',
   };
+
+  componentDidMount(){
+    const localData = localStorage.getItem(CONTACTS_KEY)
+    if(localData){
+      this.setState({contacts: JSON.parse(localData)})
+    }
+  }
+
+  componentDidUpdate(_, prevState){
+    if (this.state.contacts.length !== prevState.contacts.length){
+      localStorage.setItem(CONTACTS_KEY, JSON.stringify(this.state.contacts) )
+    }
+  }
 
   handleChange = (evt) => {
     const { name, value } = evt.target;
