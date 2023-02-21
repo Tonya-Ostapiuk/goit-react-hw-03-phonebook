@@ -1,13 +1,23 @@
 
 import { LiStyled, BtnStyled } from './Contact.styled'
+import propTypes from 'prop-types';
 
-export function Contact({ contact, contactDelete }) {
+export function Contact({ id, name, number, contactDelete }) {
   return (
-    <LiStyled key={contact.id}>
-      {contact.name} : {contact.number}
+    <LiStyled key={id}>
+      {name} : {number}
       <BtnStyled
         type="button"
-        onClick={() => contactDelete(contact.id)}> Delete </BtnStyled>
+        onClick={() => contactDelete(id)}> Delete </BtnStyled>
     </LiStyled>
   )
 }
+
+Contact.propTypes = {
+    id: propTypes.string.isRequired,
+    name: propTypes.string.isRequired,
+    number: propTypes.string.isRequired,
+  
+  contactDelete: propTypes.func.isRequired,
+
+};
